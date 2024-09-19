@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFF2196F3), // Initial primary color
         colorScheme: ColorScheme.light(
-          primary: Color(0xFF2196F3), // Initial primary color
-          secondary: Color(0xFFFFC107), // Initial secondary color
+          primary: Color(0x000A79), // Initial primary color
+          secondary: Color(0x005B86), // Initial secondary color
         ),
       ),
       home: ColorChangeHomePage(),

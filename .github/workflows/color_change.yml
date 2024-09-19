@@ -1,34 +1,18 @@
-name: Change Colors on Push
+#!/bin/bash
 
-on:
-  push:
-    branches:
-      - main  # Change this to your main branch if different
+# Function to generate a random hex color
+  generate_random_color() {
+  printf '#%06X\n' $((RANDOM % 0xFFFFFF))
+}
 
-jobs:
-  change-colors:
-    runs-on: ubuntu-latest
+  # Generate random colors for primary and secondary colors
+  PRIMARY_COLOR=$(generate_random_color)
+  SECONDARY_COLOR=$(generate_random_color)
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.1'  # Use your specific Flutter version
-
-      - name: Make script executable
-        run: chmod +x ./change_colors.sh
-
-      - name: Run color change script
-        run: ./change_colors.sh
-          git push
-
-      - name: Commit changes
-        run: |
-          git config --local user.email "luvitpriyanshu@gmail.com"
-          git config --local user.name "Priyanshu Manash"
-          git add lib/main.dart
-          git commit -m "Update colors to random values" || echo "No changes to commit"
-          git push
+  # Update main.dart with the new random colors
+sed -i "s/primary: Color(0xFF[0-9A-F]\{6\})/primary: Color(0x${PRIMARY_COLOR:1})/" lib/main.dart
+sed -i "s/secondary: Color(0xFF[0-9A-F]\{6\})/secondary: Color(0x${SECONDARY_COLOR:1})/" lib/main.dart
+  
+  echo "Updated primary color to $PRIMARY_COLOR"
+  echo "Updated secondary color to $SECONDARY_COLOR"
+z
