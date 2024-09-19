@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Randomly change the primary and secondary colors in main.dart
-PRIMARY_COLOR=$(printf '#%06X\n' $((RANDOM%16777215)))
+PRIMARY_COLOR=$(printf 'blue'
 SECONDARY_COLOR=$(printf '#%06X\n' $((RANDOM%16777215)))
 
 # Update the main.dart file
