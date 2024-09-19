@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Color Change App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        colorScheme: ColorScheme.light(primary: Colors.blue, secondary: Colors.orange),
       ),
       home: ColorChangeHomePage(),
     );
@@ -26,10 +27,9 @@ class ColorChangeHomePage extends StatefulWidget {
 class _ColorChangeHomePageState extends State<ColorChangeHomePage> {
   Color _backgroundColor = Colors.white;
 
-  // Function to generate a random color
-  void _changeColor() {
+  void _changeColor(Color primary, Color secondary) {
     setState(() {
-      _backgroundColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+      _backgroundColor = Random().nextBool() ? primary : secondary;
     });
   }
 
@@ -43,7 +43,7 @@ class _ColorChangeHomePageState extends State<ColorChangeHomePage> {
         color: _backgroundColor,
         child: Center(
           child: ElevatedButton(
-            onPressed: _changeColor,
+            onPressed: () => _changeColor(Theme.of(context).primaryColor, Theme.of(context).colorScheme.secondary),
             child: Text('Change Background Color'),
           ),
         ),
