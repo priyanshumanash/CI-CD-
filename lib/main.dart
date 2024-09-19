@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Color Change App',
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        colorScheme: ColorScheme.light(primary: Colors.blue, secondary: Colors.orange),
+        primaryColor: Colors.blue, // This will be replaced
+        colorScheme: ColorScheme.light(primary: Colors.blue, secondary: Colors.orange), // This will be replaced
       ),
       home: ColorChangeHomePage(),
     );
@@ -29,7 +29,6 @@ class _ColorChangeHomePageState extends State<ColorChangeHomePage> {
 
   void _changeColor(Color primary, Color secondary) {
     setState(() {
-      // Change the background color to either the primary or secondary color
       _backgroundColor = Random().nextBool() ? primary : secondary;
     });
   }
@@ -44,10 +43,7 @@ class _ColorChangeHomePageState extends State<ColorChangeHomePage> {
         color: _backgroundColor,
         child: Center(
           child: ElevatedButton(
-            onPressed: () => _changeColor(
-              Theme.of(context).primaryColor,
-              Theme.of(context).colorScheme.secondary,
-            ),
+            onPressed: () => _changeColor(Theme.of(context).primaryColor, Theme.of(context).colorScheme.secondary),
             child: Text('Change Background Color'),
           ),
         ),

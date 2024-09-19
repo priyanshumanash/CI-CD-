@@ -1,4 +1,4 @@
-name: Change Primary Color
+name: Change Colors on Push
 
 on:
   push:
@@ -6,27 +6,27 @@ on:
       - main
 
 jobs:
-  change_color:
+  change_colors:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'  # Change this to your Flutter version
+          flutter-version: '3.24.0'
 
       - name: Run color change script
         run: |
-          chmod +x change_color.sh
-          ./change_color.sh
+          chmod +x change_colors.sh
+          ./change_colors.sh
 
       - name: Commit changes
         run: |
-          git config --local user.email "you@example.com"  # Change to your email
-          git config --local user.name "Your Name"  # Change to your name
-          git add pubspec.yaml
-          git commit -m "Change primary color to random color"
+          git config --local user.email "luvitpriyanshu@gmail.com"
+          git config --local user.name "Priyanshu Manash"
+          git add lib/main.dart
+          git commit -m "Update colors to random values" || echo "No changes to commit"
           git push
