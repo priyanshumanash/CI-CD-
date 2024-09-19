@@ -11,23 +11,30 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Node20 compatible by default
+        uses: actions/checkout@v3  # Latest stable version
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2  # Node20 compatible version
+        uses: subosito/flutter-action@v2  # Ensure using a version compatible with Node 20
         with:
           flutter-version: "3.0.0"  # Adjust Flutter version as needed
 
+      - name: Make color change script executable
+        run: chmod +x ./color_change.sh
+
       - name: Run color change script
         run: |
-          chmod +x ./color_change.sh   # Make the script executable
-          ./color_change.sh   
-          
+          ./color_change.sh
+          echo "Color change script executed successfully."
+
       - name: Commit color changes
         run: |
-          git config --local user.name "priyanshumanash"
-          git config --local user.email "luvitpriyanshu@gmail.com"
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
           git add lib/main.dart        # Add the modified file
           git commit -m "Updated primary and secondary colors"
-          git push origin main         # Push the changes back to the repository
-     
+          git push origin development  # Push changes to development branch
+        continue-on-error: true  # Prevent failure if there are no changes to commit
+
+      - name: Output logs
+        run: |
+          echo "Workflow completed with exit code $?"
