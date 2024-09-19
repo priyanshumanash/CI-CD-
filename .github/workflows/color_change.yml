@@ -25,8 +25,8 @@ jobs:
 
       - name: Commit color changes
         run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
+          git config --local user.name "priyanshumanash"
+          git config --local user.email "luvitpriyanshu@gmail.com"
           git add lib/main.dart        # Add the modified file
           git commit -m "Updated primary and secondary colors"
           git push origin main         # Push the changes back to the repository
