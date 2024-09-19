@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Randomly change the primary and secondary colors in main.dart
-PRIMARY_COLOR=$(printf 'blue'
-SECONDARY_COLOR=$(printf '#%06X\n' $((RANDOM%16777215)))
+# Define the path to your main.dart file
+MAIN_FILE="lib/main.dart"
 
-# Update the main.dart file
-sed -i "s/primaryColor: Colors.blue/primaryColor: Color($PRIMARY_COLOR)/g" lib/main.dart
-sed -i "s/secondary: Colors.orange/secondary: Color($SECONDARY_COLOR)/g" lib/main.dart
+# Generate a random color in hex format
+RANDOM_COLOR=$(printf '#%06X\n' $((RANDOM % 0xFFFFFF)))
 
-echo "Updated primary color to: $PRIMARY_COLOR"
-echo "Updated secondary color to: $SECONDARY_COLOR"
+# Use sed to replace the primary color in main.dart
+sed -i "s/primarySwatch: Colors.\+/primarySwatch: MaterialColor(0x${RANDOM_COLOR:1}, <int, Color>{400: Color(0x${RANDOM_COLOR:1})}),/" "$MAIN_FILE"
+
+echo "Primary color changed to $RANDOM_COLOR"

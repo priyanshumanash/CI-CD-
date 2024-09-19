@@ -1,9 +1,9 @@
-name: Change Color on Push
+name: Change Primary Color
 
 on:
   push:
     branches:
-      - main  # Change if your default branch is different
+      - main
 
 jobs:
   change_color:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'  # Use your desired Flutter version
+          flutter-version: '3.24.0'  # Change this to your Flutter version
 
       - name: Run color change script
         run: |
@@ -25,10 +25,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.email "your-email@example.com"
-          git config --local user.name "Your Name"
-          git add .
-          git commit -m "Automated color change"
+          git config --local user.email "you@example.com"  # Change to your email
+          git config --local user.name "Your Name"  # Change to your name
+          git add pubspec.yaml
+          git commit -m "Change primary color to random color"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
