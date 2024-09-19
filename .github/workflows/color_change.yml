@@ -3,25 +3,27 @@ name: Change Colors on Push
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your main branch if different
 
 jobs:
-  change_colors:
+  change-colors:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.24.1'  # Use your specific Flutter version
+
+      - name: Make script executable
+        run: chmod +x ./change_colors.sh
 
       - name: Run color change script
-        run: |
-          chmod +x change_colors.sh
-          ./change_colors.sh
+        run: ./change_colors.sh
+          git push
 
       - name: Commit changes
         run: |
