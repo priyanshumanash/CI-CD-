@@ -1,18 +1,32 @@
-#!/bin/bash
+name: Color Change Automation
 
-# Function to generate a random hex color
-  generate_random_color() {
-  printf '#%06X\n' $((RANDOM % 0xFFFFFF))
-}
+on:
+  push:
+    branches:
+      - main  # Run the workflow when pushing to the main branch
 
-  # Generate random colors for primary and secondary colors
-  PRIMARY_COLOR=$(generate_random_color)
-  SECONDARY_COLOR=$(generate_random_color)
+jobs:
+  change-color:
+    runs-on: ubuntu-latest
 
-  # Update main.dart with the new random colors
-sed -i "s/primary: Color(0xFF[0-9A-F]\{6\})/primary: Color(0x${PRIMARY_COLOR:1})/" lib/main.dart
-sed -i "s/secondary: Color(0xFF[0-9A-F]\{6\})/secondary: Color(0x${SECONDARY_COLOR:1})/" lib/main.dart
-  
-  echo "Updated primary color to $PRIMARY_COLOR"
-  echo "Updated secondary color to $SECONDARY_COLOR"
-z
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.0.0"  # Specify your Flutter version here
+
+      - name: Run color change script
+        run: |
+          chmod +x ./color_change.sh   # Make the script executable
+          ./color_change.sh            # Run the script
+
+      - name: Commit color changes
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add lib/main.dart        # Add the modified file
+          git commit -m "Updated primary and secondary colors"
+          git push origin main         # Push the changes back to the repository
