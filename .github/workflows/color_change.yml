@@ -3,7 +3,7 @@ name: Color Change Automation
 on:
   push:
     branches:
-      - development  # Run the workflow when pushing to the development branch
+      - development  # Run workflow on pushes to development branch
 
 jobs:
   change-color:
@@ -11,18 +11,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Node20 compatible by default
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2  # Node20 compatible version
         with:
-          flutter-version: "3.0.0"  # Specify your Flutter version here
+          flutter-version: "3.0.0"  # Adjust Flutter version as needed
 
       - name: Run color change script
         run: |
           chmod +x ./color_change.sh   # Make the script executable
-          ./color_change.sh            # Run the script
-
+          ./color_change.sh   
+          
       - name: Commit color changes
         run: |
           git config --local user.name "priyanshumanash"
