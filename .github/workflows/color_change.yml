@@ -3,7 +3,7 @@ name: Color Change Automation
 on:
   push:
     branches:
-      - main  # Run the workflow when pushing to the main branch
+      - development  # Run the workflow when pushing to the development branch
 
 jobs:
   change-color:
@@ -30,3 +30,4 @@ jobs:
           git add lib/main.dart        # Add the modified file
           git commit -m "Updated primary and secondary colors"
           git push origin main         # Push the changes back to the repository
+     
